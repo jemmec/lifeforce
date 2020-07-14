@@ -4,8 +4,9 @@ import 'lifebox.dart';
 
 class LifeBoxGrid extends StatefulWidget {
   LifeBoxGrid({Key key, this.tuples}) : super(key: key);
-
   final int tuples;
+
+  void doesThisWork() {}
 
   @override
   _LifeBoxGridState createState() => _LifeBoxGridState();

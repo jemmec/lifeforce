@@ -32,8 +32,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _lifeBox = LifeBoxGrid(tuples: 4);
+
   @override
   Widget build(BuildContext context) {
+    _lifeBox.doesThisWork();
     return Scaffold(
       body: SizedBox.expand(
         child: Stack(
@@ -42,12 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    color: Colors.tealAccent,
-                    height: 56,
-                    child: LifeBoxGrid(
-                      tuples: 4,
-                    ),
-                  ),
+                      color: Colors.tealAccent,
+                      height: 56,
+                      child: this._lifeBox),
                 ),
               ],
             ),

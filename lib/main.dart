@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lifeforce/dynamic_grid.dart';
+
+const _darkGrey = Color.fromRGBO(68, 68, 68, 1.0);
+const _midGrey = Color.fromRGBO(112, 112, 112, 1.0);
 
 void main() {
   runApp(MyApp());
@@ -28,9 +32,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _darkGrey = Color.fromRGBO(68, 68, 68, 1.0);
-  var _midGrey = Color.fromRGBO(112, 112, 112, 1.0);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     color: Colors.tealAccent,
                     height: 56,
+                    child: DynamicGrid(
+                      tuples: 4,
+                    ),
                   ),
                 ),
               ],

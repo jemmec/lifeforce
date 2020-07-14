@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lifeforce/dynamic_grid.dart';
+import 'package:lifeforce/life_box_grid.dart';
 
 const _darkGrey = Color.fromRGBO(68, 68, 68, 1.0);
 const _midGrey = Color.fromRGBO(112, 112, 112, 1.0);
@@ -37,8 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: SizedBox.expand(
         child: Stack(
-          // mainAxisAlignment: MainAxisAlignment.end,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -46,13 +44,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     color: Colors.tealAccent,
                     height: 56,
-                    child: DynamicGrid(
+                    child: LifeBoxGrid(
                       tuples: 4,
                     ),
                   ),
                 ),
               ],
             ),
+            Align(
+                alignment: Alignment.center,
+                child: FloatingActionButton(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.pink,
+                  child: Icon(
+                    Icons.autorenew,
+                    size: 36,
+                  ),
+                  onPressed: () {},
+                )),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -96,10 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Container(
                                     height: (56 * 6).toDouble(),
                                     color: Colors.lime,
-                                    child: Expanded(
-                                      child: Container(
-                                        margin: EdgeInsets.all(10.0),
-                                        color: Colors.orangeAccent,
+                                    child: SizedBox.expand(
+                                      child: Column(
+                                        children: <Widget>[],
                                       ),
                                     ),
                                   ),

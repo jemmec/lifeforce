@@ -12,11 +12,9 @@ class LifeBox extends StatefulWidget {
 class _LifeBoxState extends State<LifeBox> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: (Container(
-        margin: EdgeInsets.all(5.0),
-        color: Colors.orange,
-      )),
+    return Container(
+      margin: EdgeInsets.all(5.0),
+      color: Colors.orange,
     );
   }
 }

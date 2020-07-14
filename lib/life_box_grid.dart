@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'lifebox.dart';
 
-class DynamicGrid extends StatefulWidget {
-  DynamicGrid({Key key, this.tuples}) : super(key: key);
+class LifeBoxGrid extends StatefulWidget {
+  LifeBoxGrid({Key key, this.tuples}) : super(key: key);
 
   final int tuples;
 
   @override
-  _DynamicGridState createState() => _DynamicGridState();
+  _LifeBoxGridState createState() => _LifeBoxGridState();
 }
 
-class _DynamicGridState extends State<DynamicGrid> {
+class _LifeBoxGridState extends State<LifeBoxGrid> {
   var _lifeBoxes = <Widget>[];
 
   @override
@@ -23,11 +23,6 @@ class _DynamicGridState extends State<DynamicGrid> {
           ));
     }
 
-    return Expanded(
-      child: (Container(
-        margin: EdgeInsets.all(5.0),
-        color: Colors.orange,
-      )),
-    );
+    return Container();
   }
 }

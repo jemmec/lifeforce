@@ -111,12 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                           topLeft: Radius.circular(28.0),
                                           topRight: Radius.circular(28.0),
                                         ),
-                                        color: _midGrey,
+                                        color: Colors.black45,
                                       ),
                                     ),
                                     Container(
                                       height: (56 * 6).toDouble(),
-                                      color: _midGrey,
+                                      color: Colors.black45,
                                       child: SizedBox.expand(
                                         child: Column(
                                           children: <Widget>[

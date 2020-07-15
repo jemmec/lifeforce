@@ -13,8 +13,8 @@ class _LifeBoxState extends State<LifeBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5.0),
-      color: Colors.orange,
-    );
+        child: Center(
+      child: Text("HI"),
+    ));
   }
 }

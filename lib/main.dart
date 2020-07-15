@@ -32,11 +32,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _lifeBox = LifeBoxGrid(tuples: 4);
+  int _players = 4;
+
+  void setPlayers(int val) {
+    setState(() {
+      _players = val;
+    });
+  }
+
+  double sliderVal = 4;
 
   @override
   Widget build(BuildContext context) {
-    _lifeBox.doesThisWork();
     return Scaffold(
       body: SizedBox.expand(
         child: Stack(
@@ -45,9 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                      color: Colors.tealAccent,
+                      color: Colors.black,
                       height: 56,
-                      child: this._lifeBox),
+                      child: LifeBoxGrid(players: this._players)),
                 ),
               ],
             ),
@@ -55,10 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.center,
                 child: FloatingActionButton(
                   backgroundColor: Colors.white,
-                  foregroundColor: Colors.pink,
-                  child: Icon(
-                    Icons.autorenew,
-                    size: 36,
+                  foregroundColor: Colors.black,
+                  child: Transform.rotate(
+                    angle: 5,
+                    child: Icon(
+                      Icons.refresh,
+                      size: 36,
+                    ),
                   ),
                   onPressed: () {},
                 )),
@@ -87,33 +97,57 @@ class _MyHomePageState extends State<MyHomePage> {
                           backgroundColor: Colors.transparent,
                           context: context,
                           builder: (BuildContext context) {
-                            return Container(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    height: 18,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(28.0),
-                                        topRight: Radius.circular(28.0),
-                                      ),
-                                      color: Colors.lime,
-                                    ),
-                                  ),
-                                  Container(
-                                    height: (56 * 6).toDouble(),
-                                    color: Colors.lime,
-                                    child: SizedBox.expand(
-                                      child: Column(
-                                        children: <Widget>[],
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                              return Container(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      height: 18,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(28.0),
+                                          topRight: Radius.circular(28.0),
+                                        ),
+                                        color: _midGrey,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
+                                    Container(
+                                      height: (56 * 6).toDouble(),
+                                      color: _midGrey,
+                                      child: SizedBox.expand(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Text(
+                                              "Players: ${this._players}",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white),
+                                            ),
+                                            Slider.adaptive(
+                                              label: "${sliderVal.floor()}",
+                                              min: 1,
+                                              max: 6,
+                                              divisions: 5,
+                                              activeColor: Colors.cyanAccent,
+                                              value: sliderVal,
+                                              onChanged: (val) {
+                                                setState(() {
+                                                  this.sliderVal = val;
+                                                  this.setPlayers(val.floor());
+                                                });
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
                           });
                     },
                     onLongPress: () {},

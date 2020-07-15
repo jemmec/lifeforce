@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lifeforce/life_box_grid.dart';
-
-const _darkGrey = Color.fromRGBO(68, 68, 68, 1.0);
-const _midGrey = Color.fromRGBO(112, 112, 112, 1.0);
+import 'package:lifeforce/lifebox.dart';
+import 'dart:async';
+import 'package:event/event.dart';
 
 void main() {
-  runApp(MyApp());
+  print("Starting app...");
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,30 +21,45 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Lifeforce'),
+      home: LifeForce(title: 'Lifeforce'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class LifeForce extends StatefulWidget {
+  LifeForce({Key key, this.title}) : super(key: key);
 
   final String title;
 
+  static Event onResetEvent = Event();
+
+  void reset() {
+    onResetEvent.broadcast();
+  }
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LifeForceState createState() => _LifeForceState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _players = 4;
-
+class _LifeForceState extends State<LifeForce> {
   void setPlayers(int val) {
     setState(() {
-      _players = val;
+      this.players = val;
     });
   }
 
+  int players = 4;
   double sliderVal = 4;
+
+  int maxPlayers = 6;
+
+  //The starting life total
+  int startingLifeTotal = 40;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                       color: Colors.black,
                       height: 56,
-                      child: LifeBoxGrid(players: this._players)),
+                      child: LifeBoxGrid(
+                        players: this.players,
+                        maxPlayers: this.maxPlayers,
+                      )),
                 ),
               ],
             ),
@@ -70,7 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 36,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    widget.reset();
+                  },
                 )),
             Align(
               alignment: Alignment.bottomCenter,
@@ -115,22 +139,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                     ),
                                     Container(
+                                      padding: EdgeInsets.all(10.0),
                                       height: (56 * 6).toDouble(),
                                       color: Colors.black45,
                                       child: SizedBox.expand(
+                                        // ---- SETTINGS MENU ----
                                         child: Column(
                                           children: <Widget>[
                                             Text(
-                                              "Players: ${this._players}",
+                                              "Players: ${this.players}",
                                               style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.white),
+                                                  fontSize: 20,
+                                                  color: Colors.cyanAccent),
                                             ),
                                             Slider.adaptive(
                                               label: "${sliderVal.floor()}",
                                               min: 1,
-                                              max: 6,
-                                              divisions: 5,
+                                              max: this.maxPlayers.toDouble(),
+                                              divisions: this.maxPlayers - 1,
                                               activeColor: Colors.cyanAccent,
                                               value: sliderVal,
                                               onChanged: (val) {

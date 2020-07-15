@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lifeforce/main.dart';
 
 import 'lifebox.dart';
 
 class LifeBoxGrid extends StatefulWidget {
-  LifeBoxGrid({Key key, this.players}) : super(key: key);
+  LifeBoxGrid({Key key, this.players, this.maxPlayers}) : super(key: key);
   final int players;
-
-  void doesThisWork() {}
+  final int maxPlayers;
 
   @override
   _LifeBoxGridState createState() => _LifeBoxGridState();
@@ -14,12 +14,9 @@ class LifeBoxGrid extends StatefulWidget {
 
 class _LifeBoxGridState extends State<LifeBoxGrid>
     with TickerProviderStateMixin {
-  var rows = <Widget>[];
   var columns = <Widget>[];
-  var lifeBoxes = <Widget>[];
 
   double boxMargin = 2.0;
-  Color boxColor = Colors.pink;
 
   @override
   void initState() {
@@ -28,18 +25,23 @@ class _LifeBoxGridState extends State<LifeBoxGrid>
 
   @override
   Widget build(BuildContext context) {
+    final lifeboxes = new List<LifeBox>(widget.maxPlayers);
+    for (int i = 0; i < lifeboxes.length; i++) {
+      lifeboxes[i] = LifeBox();
+    }
+
     columns.clear();
 
     bool evenPlayers = widget.players % 2 == 0;
 
+    //Theoretically can never go above the amount of players
+    int count = 0;
+
     if (!evenPlayers) {
       columns.add(Expanded(
           child: Container(
-        color: boxColor,
         margin: EdgeInsets.all(boxMargin),
-        child: LifeBox(
-          orientation: LifeBoxOrientation.Up,
-        ),
+        child: lifeboxes[count++].setOrientation(LifeBoxOrientation.Up),
       )));
     }
 
@@ -51,14 +53,10 @@ class _LifeBoxGridState extends State<LifeBoxGrid>
                 2,
                 (index) => new Expanded(
                       child: Container(
-                        color: boxColor,
-                        margin: EdgeInsets.all(boxMargin),
-                        child: LifeBox(
-                          orientation: index == 0
+                          margin: EdgeInsets.all(boxMargin),
+                          child: lifeboxes[count++].setOrientation(index == 0
                               ? LifeBoxOrientation.Left
-                              : LifeBoxOrientation.Right,
-                        ),
-                      ),
+                              : LifeBoxOrientation.Right)),
                     ))),
       )));
     }

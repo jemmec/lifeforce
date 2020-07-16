@@ -86,22 +86,25 @@ class _LifeForceState extends State<LifeForce> {
                   ],
                 ),
                 Align(
-                  alignment: Alignment.center,
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    child: Transform.rotate(
-                      angle: 5,
-                      child: Icon(
-                        Icons.refresh,
-                        size: 36,
+                    alignment: Alignment.center,
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.white, // button color
+                        child: InkWell(
+                          splashColor: Colors.cyan, // inkwell color
+                          child: SizedBox(
+                              width: 48,
+                              height: 48,
+                              child: Icon(
+                                Icons.refresh,
+                                size: 36,
+                              )),
+                          onLongPress: () {
+                            model.resetLifeTotals();
+                          },
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      model.resetLifeTotals();
-                    },
-                  ),
-                ),
+                    )),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(

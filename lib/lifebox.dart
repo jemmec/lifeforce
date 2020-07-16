@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lifeforce/main.dart';
+import 'models/player_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class LifeBox extends StatefulWidget {
   LifeBox({
@@ -20,15 +21,6 @@ class LifeBox extends StatefulWidget {
 enum LifeBoxOrientation { Down, Left, Up, Right }
 
 class _LifeBoxState extends State<LifeBox> {
-  int lifeTotal = 40;
-
-  void reset() {
-    print("Resting lifeBox");
-    setState(() {
-      lifeTotal = 99;
-    });
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -40,81 +32,96 @@ class _LifeBoxState extends State<LifeBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey.shade600,
-      child: RotatedBox(
-          quarterTurns: widget._orientation.index,
-          child: Stack(children: <Widget>[
-            Row(
+    return ScopedModelDescendant<Player>(
+      builder: (BuildContext context, Widget child, Player player) {
+        return Container(
+          color: Colors.blueGrey.shade600,
+          child: RotatedBox(
+            quarterTurns: widget._orientation.index,
+            child: Stack(
               children: <Widget>[
-                Expanded(
-                  child: Container(
-                    child: Center(
-                      child: Icon(
-                        Icons.remove,
-                        size: 100,
-                        color: Colors.blueGrey.shade700,
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        child: Center(
+                          child: Icon(
+                            Icons.remove,
+                            size: 128,
+                            color: Colors.blueGrey.shade500,
+                          ),
+                        ),
                       ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: Center(
+                          child: Icon(
+                            Icons.add,
+                            size: 128,
+                            color: Colors.blueGrey.shade500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                //player lifetotal
+                Center(
+                  child: Container(
+                    // color: Colors.black,
+                    child: Text(
+                      "${player.lifeTotal}",
+                      style: TextStyle(
+                          fontSize: 104,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    child: Center(
-                      child: Icon(
-                        Icons.add,
-                        size: 100,
-                        color: Colors.blueGrey.shade700,
-                      ),
+                //player name
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    "/${player.name}",
+                    style: TextStyle(
+                      color: Colors.blueGrey.shade500,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: FlatButton(
+                        onPressed: () {
+                          player.decreaseLife(1);
+                        },
+                        onLongPress: () {
+                          player.decreaseLife(5);
+                        },
+                        child: Container(),
+                      ),
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                        onPressed: () {
+                          player.increaseLife(1);
+                        },
+                        onLongPress: () {
+                          player.increaseLife(5);
+                        },
+                        child: Container(),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-            Center(
-                child: Container(
-              // color: Colors.black,
-              child: Text(
-                "$lifeTotal",
-                style: TextStyle(
-                    fontSize: 104,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            )),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: FlatButton(
-                  onPressed: () {
-                    setState(() {
-                      lifeTotal--;
-                    });
-                  },
-                  onLongPress: () {
-                    setState(() {
-                      lifeTotal -= 5;
-                    });
-                  },
-                  child: Container(),
-                )),
-                Expanded(
-                    child: FlatButton(
-                  onPressed: () {
-                    setState(() {
-                      lifeTotal++;
-                    });
-                  },
-                  onLongPress: () {
-                    setState(() {
-                      lifeTotal += 5;
-                    });
-                  },
-                  child: Container(),
-                )),
-              ],
-            ),
-          ])),
+          ),
+        );
+      },
     );
   }
 }

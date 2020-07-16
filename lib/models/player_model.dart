@@ -14,11 +14,13 @@ class Player extends Model {
 
   void increaseLife(int amount) {
     lifeTotal += amount;
+    if (lifeTotal > 999) lifeTotal = 999;
     notifyListeners();
   }
 
   void decreaseLife(int amount) {
     lifeTotal -= amount;
+    if (lifeTotal < -999) lifeTotal = -999;
     notifyListeners();
   }
 }

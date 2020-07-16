@@ -91,6 +91,20 @@ class _LifeBoxState extends State<LifeBox> {
                     ),
                   ),
                 ),
+                //Dead overlay
+                player.lifeTotal <= 0
+                    ? Container(
+                        color: Colors.black54,
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.sentiment_dissatisfied,
+                              size: 200,
+                              color: Color.fromRGBO(10, 10, 10, 150),
+                            )),
+                      )
+                    : Container(),
+                // Increment & decrement buttons
                 Row(
                   children: <Widget>[
                     Expanded(

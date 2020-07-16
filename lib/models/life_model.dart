@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'player_model.dart';
 
@@ -12,18 +13,28 @@ class LifeModel extends Model {
 
   List<Player> players;
 
+  List<MaterialColor> colors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.purple,
+    Colors.pink
+  ];
+
   //init
   LifeModel(
       {this.maxPlayers,
       this.startLifeIndex,
       this.currentPlayers,
-      this.startlifeTotals}) {
+      this.startlifeTotals,
+      this.colors}) {
     players = List<Player>(maxPlayers);
     for (int i = 0; i < maxPlayers; i++) {
       players[i] = Player(
-        name: "Player/$i",
-        lifeTotal: startlifeTotals[startLifeIndex],
-      );
+          name: "Player/$i",
+          lifeTotal: startlifeTotals[startLifeIndex],
+          color: colors[i]);
     }
   }
 

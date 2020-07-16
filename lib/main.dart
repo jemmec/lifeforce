@@ -16,7 +16,19 @@ void main() {
       maxPlayers: 6,
       currentPlayers: 4,
       startLifeIndex: 2,
-      startlifeTotals: [20, 30, 40]);
+      startlifeTotals: [
+        20,
+        30,
+        40,
+      ],
+      colors: [
+        Colors.green,
+        Colors.yellow,
+        Colors.purple,
+        Colors.red,
+        Colors.blue,
+        Colors.orange,
+      ]);
   runApp(App());
 }
 

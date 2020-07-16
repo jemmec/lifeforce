@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Player extends Model {
   String name;
   int lifeTotal;
+  MaterialColor color;
 
   //init
-  Player({this.lifeTotal, this.name});
+  Player({this.lifeTotal, this.name, this.color});
 
   void setLife(int amount) {
     lifeTotal = amount;

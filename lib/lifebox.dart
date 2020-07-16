@@ -35,7 +35,7 @@ class _LifeBoxState extends State<LifeBox> {
     return ScopedModelDescendant<Player>(
       builder: (BuildContext context, Widget child, Player player) {
         return Container(
-          color: Colors.blueGrey.shade600,
+          color: player.color.shade600,
           child: RotatedBox(
             quarterTurns: widget._orientation.index,
             child: Stack(
@@ -48,7 +48,7 @@ class _LifeBoxState extends State<LifeBox> {
                           child: Icon(
                             Icons.remove,
                             size: 128,
-                            color: Colors.blueGrey.shade500,
+                            color: player.color.shade500,
                           ),
                         ),
                       ),
@@ -59,7 +59,7 @@ class _LifeBoxState extends State<LifeBox> {
                           child: Icon(
                             Icons.add,
                             size: 128,
-                            color: Colors.blueGrey.shade500,
+                            color: player.color.shade500,
                           ),
                         ),
                       ),
@@ -85,7 +85,7 @@ class _LifeBoxState extends State<LifeBox> {
                   child: Text(
                     "/${player.name}",
                     style: TextStyle(
-                      color: Colors.blueGrey.shade500,
+                      color: player.color.shade500,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -98,7 +98,7 @@ class _LifeBoxState extends State<LifeBox> {
                         child: Align(
                             alignment: Alignment.center,
                             child: Icon(
-                              Icons.sentiment_dissatisfied,
+                              Icons.sentiment_very_dissatisfied,
                               size: 200,
                               color: Color.fromRGBO(10, 10, 10, 150),
                             )),

@@ -39,51 +39,88 @@ class _LifeBoxGridState extends State<LifeBoxGrid>
 
         bool evenPlayers = model.currentPlayers % 2 == 0;
 
-        //Theoretically can never go above the amount of players
-        int count = 0;
-
-        //create the top player if uneven number of players
-        if (!evenPlayers) {
+        if (model.currentPlayers == 1) {
           columns.add(
             Expanded(
               child: Container(
                 margin: EdgeInsets.all(boxMargin),
                 child: ScopedModel<Player>(
-                  model: model.players[count],
-                  child: lifeboxes[count].setOrientation(LifeBoxOrientation.Up),
+                  model: model.players[0],
+                  child: lifeboxes[0].setOrientation(LifeBoxOrientation.Down),
+                ),
+              ),
+            ),
+          );
+        } else if (model.currentPlayers == 2) {
+          columns.add(
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.all(boxMargin),
+                child: ScopedModel<Player>(
+                  model: model.players[0],
+                  child: lifeboxes[0].setOrientation(LifeBoxOrientation.Up),
+                ),
+              ),
+            ),
+          );
+          columns.add(
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.all(boxMargin),
+                child: ScopedModel<Player>(
+                  model: model.players[1],
+                  child: lifeboxes[1].setOrientation(LifeBoxOrientation.Down),
                 ),
               ),
             ),
           );
         } else {
-          //TODO: FIX THIS TERRIBLE THING I HAVE DONE
-          count = -1;
-        }
+          //Theoretically can never go above the amount of players
+          int count = 0;
+          //create the top player if uneven number of players
+          if (!evenPlayers) {
+            columns.add(
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(boxMargin),
+                  child: ScopedModel<Player>(
+                    model: model.players[count],
+                    child:
+                        lifeboxes[count].setOrientation(LifeBoxOrientation.Up),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            //TODO: FIX THIS TERRIBLE THING I HAVE DONE
+            count = -1;
+          }
 
-        //Create the rest of the players
-        for (int i = 0; i < (model.currentPlayers / 2).floor(); i++) {
-          columns.add(
-            Expanded(
-              child: Container(
-                child: Row(
-                  children: List.generate(
-                    2,
-                    (index) => Expanded(
-                      child: Container(
-                        margin: EdgeInsets.all(boxMargin),
-                        child: ScopedModel<Player>(
-                          model: model.players[++count],
-                          child: lifeboxes[count].setOrientation(index == 0
-                              ? LifeBoxOrientation.Left
-                              : LifeBoxOrientation.Right),
+          //Create the rest of the players
+          for (int i = 0; i < (model.currentPlayers / 2).floor(); i++) {
+            columns.add(
+              Expanded(
+                child: Container(
+                  child: Row(
+                    children: List.generate(
+                      2,
+                      (index) => Expanded(
+                        child: Container(
+                          margin: EdgeInsets.all(boxMargin),
+                          child: ScopedModel<Player>(
+                            model: model.players[++count],
+                            child: lifeboxes[count].setOrientation(index == 0
+                                ? LifeBoxOrientation.Left
+                                : LifeBoxOrientation.Right),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
+            );
+          }
         }
 
         return Container(

@@ -27,24 +27,24 @@ class LifeBox extends StatefulWidget {
 }
 
 class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
-  AnimationController transitionController;
+  AnimationController controller;
   Tween<double> tweenDouble = Tween(begin: .25, end: 1);
   Tween<Offset> tweenOffset = Tween(begin: Offset(0, -200), end: Offset(0, 0));
 
   void initState() {
     super.initState();
 
-    transitionController = AnimationController(
+    controller = AnimationController(
         vsync: this,
         duration: Duration(
           milliseconds: 300,
         ));
-    transitionController.forward();
+    controller.forward();
   }
 
   @override
   void dispose() {
-    transitionController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -55,7 +55,7 @@ class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
         return ScaleTransition(
           scale: tweenDouble.animate(
             CurvedAnimation(
-              parent: transitionController,
+              parent: controller,
               curve: Curves.elasticOut,
             ),
           ),

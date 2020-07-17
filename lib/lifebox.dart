@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lifeforce/util/MultiTouch.dart';
 import 'models/player_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -108,25 +109,33 @@ class _LifeBoxState extends State<LifeBox> {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: FlatButton(
-                        onPressed: () {
-                          player.decreaseLife(1);
+                      child: MultiTouch(
+                        onMultiTouch: (touchCount) {
+                          if (touchCount == 1)
+                            player.decreaseLife(1);
+                          else if (touchCount == 2) player.decreaseLife(5);
                         },
-                        onLongPress: () {
-                          player.decreaseLife(5);
+                        onMultiLongTap: (touchCount) {
+                          if (touchCount == 1)
+                            player.decreaseLife(10);
+                          else if (touchCount == 2) player.decreaseLife(20);
                         },
-                        child: Container(),
+                        child: Container(color: Colors.transparent),
                       ),
                     ),
                     Expanded(
-                      child: FlatButton(
-                        onPressed: () {
-                          player.increaseLife(1);
+                      child: MultiTouch(
+                        onMultiTouch: (touchCount) {
+                          if (touchCount == 1)
+                            player.increaseLife(1);
+                          else if (touchCount == 2) player.increaseLife(5);
                         },
-                        onLongPress: () {
-                          player.increaseLife(5);
+                        onMultiLongTap: (touchCount) {
+                          if (touchCount == 1)
+                            player.increaseLife(10);
+                          else if (touchCount == 2) player.increaseLife(20);
                         },
-                        child: Container(),
+                        child: Container(color: Colors.transparent),
                       ),
                     ),
                   ],

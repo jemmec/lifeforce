@@ -91,7 +91,7 @@ class _LifeForceState extends State<LifeForce> {
                       child: Material(
                         color: Colors.white, // button color
                         child: InkWell(
-                          splashColor: Colors.cyan, // inkwell color
+                          splashColor: Colors.red, // inkwell color
                           child: SizedBox(
                               width: 48,
                               height: 48,
@@ -102,6 +102,8 @@ class _LifeForceState extends State<LifeForce> {
                           onLongPress: () {
                             model.resetLifeTotals();
                           },
+                          onTapCancel: () {},
+                          onTapDown: (e) {},
                         ),
                       ),
                     )),

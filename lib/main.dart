@@ -22,12 +22,12 @@ void main() {
         40,
       ],
       colors: [
-        Colors.green,
-        Colors.yellow,
-        Colors.purple,
-        Colors.red,
-        Colors.blue,
+        Colors.indigo,
+        Colors.lime,
+        Colors.teal,
         Colors.orange,
+        Colors.pink,
+        Colors.brown
       ]);
   runApp(App());
 }
@@ -58,9 +58,12 @@ class LifeForce extends StatefulWidget {
   _LifeForceState createState() => _LifeForceState();
 }
 
-class _LifeForceState extends State<LifeForce> {
+class _LifeForceState extends State<LifeForce> with TickerProviderStateMixin {
   double currentPlayers_slider = 4;
   double startLifeTotal_slider = 3;
+  AnimationController controller;
+  Tween<AlignmentGeometry> tween =
+      Tween(begin: Alignment.center, end: Alignment.topCenter);
 
   @override
   void dispose() {
@@ -68,9 +71,24 @@ class _LifeForceState extends State<LifeForce> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 600,
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<LifeModel>(
       builder: (BuildContext context, Widget child, LifeModel model) {
+        if (model.currentPlayers == 1)
+          controller.forward();
+        else
+          controller.reverse();
         return Scaffold(
           body: SizedBox.expand(
             child: Stack(
@@ -79,14 +97,19 @@ class _LifeForceState extends State<LifeForce> {
                   children: <Widget>[
                     Expanded(
                       child: Container(
-                          color: Colors.black,
+                          color: Color.fromARGB(255, 55, 55, 55),
                           height: 56,
                           child: LifeBoxGrid()),
                     ),
                   ],
                 ),
-                Align(
-                    alignment: Alignment.center,
+                AlignTransition(
+                    alignment: tween.animate(
+                      CurvedAnimation(
+                        parent: controller,
+                        curve: Curves.easeInOutExpo,
+                      ),
+                    ),
                     child: ClipOval(
                       child: Material(
                         color: Colors.white, // button color

@@ -17,7 +17,7 @@ class _LifeBoxGridState extends State<LifeBoxGrid>
     with TickerProviderStateMixin {
   var columns = <Widget>[];
 
-  double boxMargin = 2.0;
+  double boxMargin = 0.0;
 
   @override
   void initState() {

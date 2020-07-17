@@ -28,7 +28,7 @@ class LifeBox extends StatefulWidget {
 
 class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
   AnimationController controller;
-  Tween<double> tweenDouble = Tween(begin: .25, end: 1);
+  Tween<double> tweenDouble = Tween(begin: .6, end: 1);
   Tween<Offset> tweenOffset = Tween(begin: Offset(0, -200), end: Offset(0, 0));
 
   void initState() {
@@ -37,7 +37,7 @@ class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
     controller = AnimationController(
         vsync: this,
         duration: Duration(
-          milliseconds: 300,
+          milliseconds: 450,
         ));
     controller.forward();
   }
@@ -56,11 +56,11 @@ class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
           scale: tweenDouble.animate(
             CurvedAnimation(
               parent: controller,
-              curve: Curves.elasticOut,
+              curve: Curves.easeOutBack,
             ),
           ),
           child: Container(
-            color: player.color.shade600,
+            color: player.color.shade300,
             child: RotatedBox(
               quarterTurns: widget.orientation.index,
               child: Stack(
@@ -73,7 +73,7 @@ class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
                             child: Icon(
                               Icons.remove,
                               size: 128,
-                              color: player.color.shade500,
+                              color: player.color.shade400,
                             ),
                           ),
                         ),
@@ -84,7 +84,7 @@ class _LifeBoxState extends State<LifeBox> with SingleTickerProviderStateMixin {
                             child: Icon(
                               Icons.add,
                               size: 128,
-                              color: player.color.shade500,
+                              color: player.color.shade400,
                             ),
                           ),
                         ),

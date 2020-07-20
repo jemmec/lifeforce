@@ -114,13 +114,14 @@ class _LifeForceState extends State<LifeForce> with TickerProviderStateMixin {
                       child: Material(
                         color: Colors.white, // button color
                         child: InkWell(
-                          splashColor: Colors.red, // inkwell color
+                          splashColor: Colors.grey, // inkwell color
                           child: SizedBox(
-                              width: 48,
-                              height: 48,
+                              width: 56,
+                              height: 56,
                               child: Icon(
                                 Icons.refresh,
-                                size: 36,
+                                color: Colors.grey,
+                                size: 45,
                               )),
                           onLongPress: () {
                             model.resetLifeTotals();
